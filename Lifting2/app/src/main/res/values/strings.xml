@@ -1,0 +1,8 @@
+<resources>
+    <string name="app_name">Lifting2</string>
+
+    <string name="hello_world">Hello world!</string>
+    <string name="action_settings">Settings</string>
+    <string name="calculate">Calculate Cycle</string>
+    <string name="title_activity_cycle_display">CycleDisplayActivity</string>
+</resources>
