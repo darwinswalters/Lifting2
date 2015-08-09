@@ -1,7 +1,6 @@
 package com.example.walter16.lifting2;
 
 import android.content.Context;
-import android.content.Intent;
 import android.os.AsyncTask;
 import android.support.v7.app.ActionBarActivity;
 import android.os.Bundle;
@@ -12,44 +11,20 @@ import android.widget.ArrayAdapter;
 import android.widget.EditText;
 import android.widget.ListView;
 
-import java.util.ArrayList;
-
 import static com.example.walter16.lifting2.R.id.list_item_cycle_textview;
 
 
-public class MainActivity extends ActionBarActivity {
+public class CalculateCycleActivity extends ActionBarActivity {
 
-    Context context = MainActivity.this;
+    Context context = CalculateCycleActivity.this;
 
     public final static String ONERM_DOUBLE = "com.example.walter16.lifting2.double";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_main);
+        setContentView(R.layout.activity_calculate_cycle);
 
-//        String[] forecastMockList = { "Today - Sunny - 88/63",
-//                "Tomorrow - Sunny - 88/63",
-//                "7/27 - Sunny - 88/63",
-//                "7/28 - Sunny - 88/63",
-//                "7/29 - Sunny - 88/63",
-//                "7/30 - Sunny - 88/63",
-//                "7/31 - Sunny - 88/63",};
-//
-//        ArrayAdapter<String> cycleAdapter = new ArrayAdapter<String>(this,
-//                R.layout.list_item_cycle, R.id.list_item_cycle_textview, forecastMockList);
-//
-//
-//        ListView cycleListView = (ListView) this.findViewById(R.id.mainCycleListView);
-//        cycleListView.setAdapter(cycleAdapter);
-        //cycleListView.setAdapter(cycleAdapter);
-        //String oneRMString = oneRM.toString();
-
-//        TextView cycleTextView = new TextView(this);
-//        cycleTextView.setTextSize(20);
-//        cycleTextView.setText((CharSequence) cycleList);
-
-        //setContentView(cycleListView);
     }
 
     @Override
@@ -78,40 +53,13 @@ public class MainActivity extends ActionBarActivity {
 
         EditText editText = (EditText) findViewById(R.id.editText);
         Double oneRM = Double.parseDouble(editText.getText().toString());
-//
-//        // Create intent to start new screen
-//        Intent cycleIntent = new Intent(this, CycleDisplayActivity.class);
-//        cycleIntent.putExtra(ONERM_DOUBLE, oneRM);
-//
-//        startActivity(cycleIntent);
-/*
-        String[] forecastMockList = { "Today - Sunny - 88/63",
-                "Tomorrow - Sunny - 88/63",
-                "7/27 - Sunny - 88/63",
-                "7/28 - Sunny - 88/63",
-                "7/29 - Sunny - 88/63",
-                "7/30 - Sunny - 88/63",
-                "7/31 - Sunny - 88/63",};
-
-        ArrayAdapter<String> cycleAdapter = new ArrayAdapter<String>(this,
-                R.layout.list_item_cycle, R.id.list_item_cycle_textview, forecastMockList);
 
 
-        ListView cycleListView = (ListView) this.findViewById(R.id.mainCycleListView);
-        //cycleListView.setAdapter(cycleAdapter);
-        //String oneRMString = oneRM.toString();
-
-//        TextView cycleTextView = new TextView(this);
-//        cycleTextView.setTextSize(20);
-//        cycleTextView.setText((CharSequence) cycleList);
-
-        setContentView(cycleListView);*/
-
-        ForecastAsyncTask forecstAsyncTask = new ForecastAsyncTask();
-        forecstAsyncTask.execute(oneRM);
+        CycleCalculationTask cycleCalculationTask = new CycleCalculationTask();
+        cycleCalculationTask.execute(oneRM);
     }
 
-    protected class ForecastAsyncTask extends AsyncTask<Double,Void,String[]> {
+    protected class CycleCalculationTask extends AsyncTask<Double,Void,String[]> {
 
         @Override
         protected String[] doInBackground(Double...oneRM) {
@@ -134,14 +82,6 @@ public class MainActivity extends ActionBarActivity {
 
             ListView cycleListView = (ListView) findViewById(R.id.mainCycleListView);
             cycleListView.setAdapter(cycleAdapter);
-            //cycleListView.setAdapter(cycleAdapter);
-            //String oneRMString = oneRM.toString();
-
-//        TextView cycleTextView = new TextView(this);
-//        cycleTextView.setTextSize(20);
-//        cycleTextView.setText((CharSequence) cycleList);
-
-            //setContentView(cycleListView);
 
         }
 

@@ -7,9 +7,6 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
-import android.widget.TextView;
-
-import java.util.ArrayList;
 
 
 public class CycleDisplayActivity extends ActionBarActivity {
@@ -22,7 +19,7 @@ public class CycleDisplayActivity extends ActionBarActivity {
         setContentView(R.layout.activity_cycle_display);
 
         Intent oneRMIntent = getIntent();
-        Double oneRM = oneRMIntent.getDoubleExtra(MainActivity.ONERM_DOUBLE, 0.0);
+        Double oneRM = oneRMIntent.getDoubleExtra(CalculateCycleActivity.ONERM_DOUBLE, 0.0);
 
 //        LiftCalculations liftCalculations = new LiftCalculations();
 //        Double[] liftArray = new Double[12];

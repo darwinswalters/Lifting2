@@ -5,4 +5,9 @@
     <string name="action_settings">Settings</string>
     <string name="calculate">Calculate Cycle</string>
     <string name="title_activity_cycle_display">CycleDisplayActivity</string>
+    <string name="title_activity_select_user">SelectUserActivity</string>
+    <string name="title_activity_calculate_cycle">CalculateCycleActivity</string>
+    <string name="add_new_user">+ Add New User</string>
+    <string name="add_user_button_text">Add</string>
+    <string name="select_user">Select User</string>
 </resources>
