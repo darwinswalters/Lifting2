@@ -7,6 +7,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.view.inputmethod.InputMethodManager;
 import android.widget.ArrayAdapter;
 import android.widget.EditText;
 import android.widget.ListView;
@@ -21,6 +22,10 @@ public class SelectUserActivity extends AppCompatActivity {
 
     private Context selectUserActivityContext;
 
+    private EditText newUserEditText;
+
+    private InputMethodManager imm;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -30,6 +35,10 @@ public class SelectUserActivity extends AppCompatActivity {
         // initialize the list
         userStringList = new ArrayList<String>();
         selectUserActivityContext = SelectUserActivity.this;
+        newUserEditText = (EditText) findViewById(R.id.new_user_edit_text);
+
+        imm = (InputMethodManager) this.getSystemService(Context.INPUT_METHOD_SERVICE);
+
 
     }
 
@@ -59,9 +68,13 @@ public class SelectUserActivity extends AppCompatActivity {
     public void addNewUser(View view){
 
 
-        EditText newUserEditText = (EditText) findViewById(R.id.new_user_edit_text);
+
         String newUser = newUserEditText.getText().toString();
         // ADD FUNCTIONALITY TO REMIND USER THAT FIELD IS BLANK IF BLANK
+
+        // hide the keyboard
+        imm.hideSoftInputFromWindow(newUserEditText.getWindowToken(), 0);
+
         UpdateUserListTask updateUserListTask = new UpdateUserListTask();
         updateUserListTask.execute(newUser);
     }
@@ -89,6 +102,10 @@ public class SelectUserActivity extends AppCompatActivity {
 
             ListView userListView = (ListView) findViewById(R.id.user_listview);
             userListView.setAdapter(userListViewAdapter);
+
+            //Clear editText
+            newUserEditText.setText("");
+
 
         }
     }

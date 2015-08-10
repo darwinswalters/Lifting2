@@ -9,7 +9,8 @@
         android:theme="@style/AppTheme" >
         <activity
             android:name=".SelectUserActivity"
-            android:label="@string/select_user" >
+            android:label="@string/select_user"
+            android:windowSoftInputMode="stateAlwaysHidden">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
