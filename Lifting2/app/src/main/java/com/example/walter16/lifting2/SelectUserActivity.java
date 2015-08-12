@@ -1,6 +1,7 @@
 package com.example.walter16.lifting2;
 
 import android.content.Context;
+import android.content.SharedPreferences;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
@@ -13,6 +14,7 @@ import android.widget.EditText;
 import android.widget.ListView;
 
 import java.util.ArrayList;
+import java.util.Map;
 
 public class SelectUserActivity extends AppCompatActivity {
 
@@ -26,6 +28,11 @@ public class SelectUserActivity extends AppCompatActivity {
 
     private InputMethodManager imm;
 
+    private  SharedPreferences userListSharedPreference;
+
+    private static final String SHARED_PREFERENCES_FILE_NAME = "userSharedPreferences";
+
+    private ListView userListView;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -38,6 +45,15 @@ public class SelectUserActivity extends AppCompatActivity {
         newUserEditText = (EditText) findViewById(R.id.new_user_edit_text);
 
         imm = (InputMethodManager) this.getSystemService(Context.INPUT_METHOD_SERVICE);
+
+        userListView = (ListView) findViewById(R.id.user_listview);
+
+
+        // initialize SharedPreferences
+        userListSharedPreference = getSharedPreferences(SHARED_PREFERENCES_FILE_NAME
+                ,MODE_PRIVATE);
+
+        loadExistingUsers();
 
 
     }
@@ -79,34 +95,77 @@ public class SelectUserActivity extends AppCompatActivity {
         updateUserListTask.execute(newUser);
     }
 
-    protected class UpdateUserListTask extends AsyncTask<String, Void, ArrayList<String>> {
+    protected class UpdateUserListTask extends AsyncTask<String, Void, String> {
 
         // add user to the app.  This includes:
 //           1. adding name to list
 //           2. adding data structure to hold user data
         @Override
-        protected ArrayList<String> doInBackground(String...newUser) {
+        protected String doInBackground(String... newUser) {
+
+            // add user, user key pair entry to userListSharedPreferences
+
+            return newUser[0];
+        }
 
             // update list
-            userStringList.add(newUser[0]);
-            return userStringList;
-        }
+//            userStringList.add(newUser[0]);
+//            return userStringList;
+
 
         @Override
-        protected void onPostExecute(ArrayList<String> result){
-            // update the listview
-            userListViewAdapter = new ArrayAdapter<String>(selectUserActivityContext,
-                    R.layout.list_item_select_user, R.id.user_name_text, result);
-
-            //userListViewAdapter.add(result);
-
-            ListView userListView = (ListView) findViewById(R.id.user_listview);
-            userListView.setAdapter(userListViewAdapter);
-
-            //Clear editText
-            newUserEditText.setText("");
-
+        protected void onPostExecute(String newUser){
+//            // update the listview
+//            userListViewAdapter = new ArrayAdapter<String>(selectUserActivityContext,
+//                    R.layout.list_item_select_user, R.id.user_name_text, result);
+//
+//            //userListViewAdapter.add(result);
+//
+//            ListView userListView = (ListView) findViewById(R.id.user_listview);
+//            userListView.setAdapter(userListViewAdapter);
+//
+//            //Clear editText
+//            newUserEditText.setText("");
+            SharedPreferences.Editor newUserEditor = userListSharedPreference.edit();
+            newUserEditor.putString(newUser, newUser);
+            newUserEditor.commit();
+            loadExistingUsers();
 
         }
+    }
+
+    private void setUserListView(ListView userListView, ArrayAdapter<String> userListViewAdapter,
+                                 int list_item_select_user, int user_name_text, ArrayList<String> userArrayList) {
+
+        userListViewAdapter = new ArrayAdapter<String>(selectUserActivityContext,
+                R.layout.list_item_select_user, R.id.user_name_text, userArrayList);
+
+        userListView.setAdapter(userListViewAdapter);
+
+        //Clear editText
+        newUserEditText.setText("");
+
+    }
+
+    // Loads the listView with existing user names from sharedPreferences file
+    private void loadExistingUsers() {
+
+        Map<String, String> userMap = (Map<String,String>) userListSharedPreference.getAll();
+
+        if (userMap.size() == 0) {
+            return;
+        }
+
+        ArrayList<String> userArrayList = new ArrayList<String>();
+        // iterate through list and populate the fields
+        for (Map.Entry<String,String>currentEntry : userMap.entrySet()) {
+            userArrayList.add(currentEntry.getValue());
+        }
+
+        // update the UserList
+
+        setUserListView(userListView, userListViewAdapter, R.layout.list_item_select_user,
+                R.id.user_name_text, userArrayList);
+
     }
 }
