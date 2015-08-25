@@ -10,12 +10,7 @@
         <activity
             android:name=".SelectUserActivity"
             android:label="@string/select_user"
-            android:windowSoftInputMode="stateAlwaysHidden">
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
-
-                <category android:name="android.intent.category.LAUNCHER" />
-            </intent-filter>
+            android:windowSoftInputMode="stateAlwaysHidden" >
         </activity>
         <activity
             android:name=".CycleDisplayActivity"
@@ -25,8 +20,14 @@
             android:name=".CalculateCycleActivity"
             android:label="@string/title_activity_calculate_cycle" >
         </activity>
+        <activity
+            android:name=".MainMenuActivity"
+            android:label="@string/title_activity_main_menu" >
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
     </application>
 
 </manifest>
-
-

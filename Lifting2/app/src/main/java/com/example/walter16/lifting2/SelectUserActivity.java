@@ -134,6 +134,11 @@ public class SelectUserActivity extends AppCompatActivity {
         }
     }
 
+    // start an activity for a specific user if a name on the list is clicked
+    // we will have to retrieve the name from sharedpreferences or the text
+
+
+
     private void setUserListView(ListView userListView, ArrayAdapter<String> userListViewAdapter,
                                  int list_item_select_user, int user_name_text, ArrayList<String> userArrayList) {
 
